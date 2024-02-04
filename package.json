@@ -1,0 +1,26 @@
+{
+  "name": "graphql_event_booking_v1",
+  "version": "1.0.0",
+  "description": "a simple gql api",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sach7n/graphql_api_1.git"
+  },
+  "author": "Sachin Macwan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sach7n/graphql_api_1/issues"
+  },
+  "homepage": "https://github.com/Sach7n/graphql_api_1#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "nodemon": "^3.0.3"
+  }
+}
