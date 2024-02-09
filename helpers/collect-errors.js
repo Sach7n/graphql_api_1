@@ -1,16 +1,32 @@
-const errors1 = [{
+const errorsDict = [
+  {
     Description: "Bad Input. Please check input JSON.",
-    ErrorType: 'INVALID_JSON',
+    ErrorType: "INVALID_JSON",
     Expected: "Valid JSON",
-}]
+    code: 1000,
+  },
+  {
+    Description: "Input values contains invalid field data",
+    ErrorType: "INVALID_DATA",
+    Expected: "Valid DATA",
+    code: 1001,
+  },
+];
 
-const e1 = 'INVALID_JSON';
 
-function collect_errors(errors){
-    // const error = errors.find(e=>e.ErrorType === e1)
-    // return error;
-    return errors1[0];
+function collect_errors(errors) {
+  let resultArray = [];
 
+  resultArray = errors.map((e) => {
+    const errorMatch = errorsDict.find((error) => error.code === e.code);
+
+    if (errorMatch) {
+      return { ...errorMatch, ...e };
+    } else {
+      return e;
+    }
+  });
+  return resultArray;
 }
 
 module.exports = collect_errors;

@@ -1,19 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+const express = require("express");
+const bodyParser = require("body-parser");
+const { graphqlHTTP } = require("express-graphql");
+const { buildSchema } = require("graphql");
 
-const dbConfig = require('./db/db-connection-util');
-const Event = require('./models/event');
-const collect_errors  = require('./helpers/collect-errors');
-const errors = require('./helpers/dictionary');
+const dbConfig = require("./db/db-connection-util");
+const Event = require("./models/event");
+const collect_errors = require("./helpers/collect-errors");
+const {validateEventInput} = require("./helpers/validate-input");
+const errors = require("./helpers/dictionary");
 
 const app = express();
 
 app.use(bodyParser.json());
 
 app.use(
-  '/graphql',
+  "/graphql",
   graphqlHTTP({
     schema: buildSchema(`
         type Event {
@@ -39,7 +40,7 @@ app.use(
 
         type CreateEventResponse {
           event: Event
-          error: EventError
+          error: [EventError]
         }
 
         type User {
@@ -70,21 +71,23 @@ app.use(
     rootValue: {
       events: () => {
         return Event.find()
-          .then(events => {
-            return events.map(event => {
+          .then((events) => {
+            return events.map((event) => {
               return { ...event._doc, _id: event.id };
             });
           })
-          .catch(err => {
+          .catch((err) => {
             throw err;
           });
       },
       _createEvent: (args, req) => {
-        let errors;
-        if (args && args.eventInput && args.eventInput.title === "testError") {
-          ;
-          return {error:collect_errors(errors)};
+        
+        const errors = validateEventInput(args.eventInput);
+
+        if (errors.length > 0) {
+          return { error: collect_errors(errors) };
         }
+
         const event = new Event({
           title: args.eventInput.title,
           description: args.eventInput.description,
@@ -94,10 +97,10 @@ app.use(
         });
         return event
           .save()
-          .then(result => {
-            return {  event: result,error:null};
+          .then((result) => {
+            return { event: result, error: null };
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
             throw err;
           });
