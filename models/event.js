@@ -19,7 +19,7 @@ const eventSchema = new Schema({
     type: Date,
     required: true
   },
-  creator: {
+  eventToUserRelationTypeid: {
     type: String,
     required: true
   }
