@@ -1,14 +1,20 @@
 const dbConfig = require("../db/db-connection-util");
 
+async function getNextId() {
+  try {
+    const mongooseConnection = await dbConfig();
 
-async function getNextEventId() {
-    const result = await dbConfig.counters.findAndModify({
-       query: { _id: "eventId" },
-       update: { $inc: { sequence_value: 1 } },
-       new: true
-    });
- 
-    return result.value.sequence_value;
- }
+    const countersCollection = mongooseConnection.collection('counters');
 
- module.exports = {getNextEventId};
+    const result = await countersCollection.findOneAndUpdate(
+      { _id: "eventId" },
+      { $inc: { sequence_value: 1 } },
+      { new: true, upsert: true }
+    )
+    return result.sequence_value;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports = { getNextId };

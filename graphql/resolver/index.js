@@ -2,7 +2,7 @@ const Event = require("../../models/event");
 const User = require("../../models/user");
 const collect_errors = require("../../helpers/collect-errors");
 const { validateEventInput } = require("../../helpers/validate-input");
-const {getNextEventId} = require('../../helpers/generate_ids')
+const {getNextId} = require('../../helpers/generate_ids')
 const dbConfig = require("../../db/db-connection-util");
 
 
@@ -25,8 +25,9 @@ module.exports = {
       return { error: collect_errors(errors) };
     }
 
-    //const eventID = dbConfig;
+    const eventID = await getNextId();
     const event = new Event({
+      id: eventID,
       title: args.eventInput.title,
       description: args.eventInput.description,
       price: +args.eventInput.price,
