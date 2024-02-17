@@ -22,6 +22,11 @@ app.use(
   })
 );
 
+// async ()=>{
+// const connection =await  dbConfig();
+// return connection.connection;
+// }();
+
 dbConfig();
 app.listen(3000,()=>{console.log('app listening to 3000')});
 
