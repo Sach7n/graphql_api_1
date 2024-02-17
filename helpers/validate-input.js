@@ -1,3 +1,12 @@
+const {alphaNumericSpace} = require('../constants/constants') 
+
+/**
+ * validates input field that comes from end point.
+ * 
+ * 
+ * @returns {Array}  returns array of errors or empty array
+ */
+
 const validateEventInput = (eventInput) => {
     const errors = [];
   
@@ -7,7 +16,7 @@ const validateEventInput = (eventInput) => {
       const fields = Object.keys(eventInput);
   
       for (const field of fields) {
-        if (!(/^[a-zA-Z0-9 .-]+$/).test(eventInput[field])) {
+        if (!alphaNumericSpace.test(eventInput[field])) {
           errors.push({code:1001,Description: `Invalid value for field '${field}'.`});
         }
       }

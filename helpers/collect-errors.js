@@ -19,6 +19,12 @@ const errorsDict = [
   },
 ];
 
+/**
+ * Defines the error properties for objects in errors array.
+ * 
+ * @param {Array} errors - Array of objects having errors
+ * @returns {Array} The final array of objects having all errors.
+ */
 
 function collect_errors(errors) {
   let resultArray = [];
@@ -27,7 +33,7 @@ function collect_errors(errors) {
     if(!e.code){
       e.code = 1000;
     }
-    const errorMatch = errorsDict.find((error) => error.code === e.code);
+    const errorMatch = errorsDict.find(error =>error && error.code === e.code);
 
     if (errorMatch) {
       return { ...errorMatch, ...e };

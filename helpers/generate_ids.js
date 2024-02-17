@@ -1,5 +1,12 @@
 const dbConfig = require("../db/db-connection-util");
 
+/**
+ * Generates id based on counter document in mongodb
+ * 
+ * 
+ * @returns {number}  next number from the stored number in sequence value
+ */
+
 async function getNextId() {
   try {
     const mongooseConnection = await dbConfig();
