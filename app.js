@@ -1,5 +1,4 @@
 const express = require("express");
-const bcrypt = require('bcryptjs');
 const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
 const EventUserSchema  = require("./graphql/schema/index");
@@ -22,10 +21,6 @@ app.use(
   })
 );
 
-// async ()=>{
-// const connection =await  dbConfig();
-// return connection.connection;
-// }();
 
 dbConfig();
 app.listen(3000,()=>{console.log('app listening to 3000')});

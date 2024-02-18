@@ -17,6 +17,18 @@ const errorsDict = [
     Expected: "Valid DATA",
     code: 1002,
   },
+  {
+    Description: "Duplicate entry",
+    ErrorType: "DATA",
+    Expected: "Valid DATA",
+    code: 1003,
+  },
+  {
+    Description: "User not found",
+    ErrorType: "NOT_FOUND",
+    Expected: "Valid User",
+    code: 1004,
+  },
 ];
 
 /**

@@ -2,16 +2,16 @@ const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
         type Event {
-          _id: ID!
-          title: String!
-          description: String!
-          price: Float!
-          date: String!
-          eventToUserRelationTypeid: String!
+          id: Int!
+          title: String
+          description: String
+          price: Float
+          date: String
+          eventToUserRelationTypeid: String
         }
 
         type EventResponse {
-            id: ID!
+            id: Int!
             eventToUserRelationTypeid: String!
           }
 
@@ -23,7 +23,7 @@ module.exports = buildSchema(`
           eventToUserRelationTypeid: String!
         }
 
-        type EventError {
+        type Error {
           Description: String!
           ErrorType: String!
           Expected: String!
@@ -31,11 +31,11 @@ module.exports = buildSchema(`
 
         type CreateEventResponse {
           event: EventResponse
-          error: [EventError]
+          error: [Error]
         }
 
         type User {
-          _id: ID!
+          id: Int!
           email: String!
           password: String
           userToEventRelationTypeid: String
@@ -46,13 +46,23 @@ module.exports = buildSchema(`
           password: String!
         }
 
+        type UserResponse {
+          id: Int!
+          userToEventRelationTypeid: String
+        }
+
+        type CreateUserResponse {
+          User: UserResponse
+          error: [Error]
+        }
+
         type RootQuery {
           events: [Event!]!
         }
 
         type RootMutation {
           createEvent(eventInput: EventInput): CreateEventResponse
-          createUser(userInput: UserInput): User
+          createUser(userInput: UserInput): CreateUserResponse
         }
 
         schema {
