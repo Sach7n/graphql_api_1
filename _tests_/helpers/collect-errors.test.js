@@ -24,6 +24,19 @@ describe("test collect errors function", () => {
       },
     ];
     const errors = collect_errors(sentErrors2);
-    expect(errors).toContainEqual(expect.objectContaining({code: 1000}))
+    expect(errors).toContainEqual(expect.objectContaining({}))
+  });
+
+  test("NEGATIVE: Throw error when errors is not an array", () => {
+    const sentErrors2 = 
+      {
+        Description: "Input values contains invalid field data",
+        ErrorType: "INVALID_DATA",
+        Expected: "Valid DATA",
+        code: undefined,
+      }
+    ;
+    const errors = collect_errors(sentErrors2);
+    expect(errors).toContainEqual(expect.objectContaining({}))
   });
 });

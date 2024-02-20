@@ -40,7 +40,9 @@ const errorsDict = [
 
 function collect_errors(errors) {
   let resultArray = [];
-
+  if(!Array.isArray(errors)){
+    resultArray.push({code:1000}) 
+  }
   resultArray = errors.map((e) => {
     if(!e.code){
       e.code = 1000;
